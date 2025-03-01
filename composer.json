@@ -1,0 +1,31 @@
+{
+  "name": "northrook/view-image",
+  "description": "Render HTML images as a northrook\\view.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Martin",
+      "email": "mn@northrook.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Core\\View\\Component\\": "src"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=8.3",
+    "northrook/view": "dev-main",
+    "northrook/core-symfony": "dev-main",
+    "northrook/pathfinder": "dev-main"
+  },
+  "require-dev": {
+    "northrook/dev": "dev-main"
+  },
+  "scripts": {
+    "phpstan": "@php vendor/bin/phpstan analyse"
+  }
+}
