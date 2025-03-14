@@ -1,24 +1,55 @@
 <?php
 
-declare( strict_types = 1 );
+declare(strict_types=1);
 
 namespace Core\View\Component;
 
+use Core\Asset\ImageAsset;
+use Core\AssetManager;
 use Core\View\Attribute\ViewComponent;
 use Core\View\Element;
 
-#[ViewComponent( 'img', true, 60 )]
+#[ViewComponent( 'img:{type}', true, 60 )]
 final class ImageComponent extends AbstractComponent
 {
+    protected string $source;
+
+    public readonly ImageAsset $asset;
+
+    public function __construct( private readonly AssetManager $assetManager ) {}
+
+    protected function prepareArguments( array &$arguments ) : void
+    {
+        if ( \is_string( $arguments['attributes']['src'] ?? null ) ) {
+            $this->source = $arguments['attributes']['src'];
+            unset( $arguments['attributes']['src'] );
+        }
+    }
+
     public function getView() : Element
     {
-        $img = new Element( 'img' );
+        $this->resolveAsset();
 
-        $img->attributes(
-                src : '#',
-                alt : 'Image Component',
+        $this->view->attributes(
+            src : '#',
+            alt : 'Image Component',
         );
 
-        return $img;
+        dump( $this->asset );
+
+        return $this->view;
+    }
+
+    protected function resolveAsset() : void
+    {
+        if ( isset( $this->asset ) ) {
+            return;
+        }
+
+        $imageAsset = $this->assetManager->getAsset( $this->source );
+
+        \assert( $imageAsset instanceof ImageAsset );
+
+        $this->asset = $imageAsset;
     }
 }

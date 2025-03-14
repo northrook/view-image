@@ -20,7 +20,8 @@
     "php": ">=8.3",
     "northrook/view": "dev-main",
     "northrook/core-symfony": "dev-main",
-    "northrook/pathfinder": "dev-main"
+    "northrook/pathfinder": "dev-main",
+    "northrook/asset-manager": "dev-main"
   },
   "require-dev": {
     "northrook/dev": "dev-main"
