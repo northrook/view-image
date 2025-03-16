@@ -9,10 +9,12 @@ use Core\AssetManager;
 use Core\View\Attribute\ViewComponent;
 use Core\View\Element;
 
-#[ViewComponent( 'img:{type}', true, 60 )]
+#[ViewComponent( ['img', 'img:{type}'], true, 60 )]
 final class ImageComponent extends AbstractComponent
 {
     protected string $source;
+
+    protected ?string $type = null;
 
     public readonly ImageAsset $asset;
 
@@ -34,8 +36,6 @@ final class ImageComponent extends AbstractComponent
             src : '#',
             alt : 'Image Component',
         );
-
-        dump( $this->asset );
 
         return $this->view;
     }
